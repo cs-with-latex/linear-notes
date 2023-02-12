@@ -1,0 +1,201 @@
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+\usepackage{listings} 
+\usepackage{xcolor} 
+\usepackage{amsmath}
+\newtheorem{definition}{定义}
+\newtheorem{theorem}{定理}
+\newtheorem{proof}{证明}
+\newtheorem{lemma}{引理}
+\lstset{
+  basicstyle=\tt,
+  keywordstyle=\color{purple}\bfseries,
+  identifierstyle=\color{brown!80!black},
+  commentstyle=\color{gray},
+  showstringspaces=false,
+  numbers=left,                
+  numberstyle=\small,               
+}
+\title{线代第六章笔记}
+\author{5eqn}
+\date{\today}
+\begin{document}
+  \maketitle
+  \section{实二次型及其标准形}
+    \subsection{二次型}
+      \begin{definition}
+        $n$元函数$ f\left(x_1,x_2,\ldots,x_{n}\right)$
+        每一项都是二次的时候, 便是二次型.
+      \end{definition}
+      
+      注意每个二次型都会代表一个二次曲面.
+
+    \subsection{参数矩阵}
+      可以看出存在平方数量级的自由参数.
+      具体地, 每一对数字都对应一个参数,
+      但是数字反转后, 例如$x_2x_4$和$x_4x_2$应该对应相等的参数.
+      这些参数组成矩阵$A$, 将$x$视为向量,
+      那么$f\left(X\right)=X^{T}AX$, 其中$A^{T}=A$.
+
+    \subsection{参数矩阵的线性变换}
+      同理可以对参数向量进行线性变换,
+      注意这里是\textbf{将原有的变量视为从某些变量经过变换得到的}.
+      这是因为在很多时候我们倾向于将纷繁复杂的图像
+      视为从某些简单图像变换得到的,
+      而不是反过来.
+      
+      同时, 从这种视角看也比较容易进行运算:
+      令$X=CY$,
+      那么
+      \[
+      \begin{aligned}
+        f\left(X\right)&=
+        \left(CY\right)^{T}A\left(CY\right)
+        \\&=Y^{T}\left(C^{T}AC\right)Y
+      .\end{aligned}
+      \]
+      
+      因此二次型的系数矩阵也变成了$C^{T}AC$.
+
+    \subsection{配方法}
+      在比较容易看出的时候, 可以将二次型表示为类似于
+      $\left(x_1+x_2\right)^{2}-\left(x_2-x_3\right)^{2}$的形式,
+      这样就等同于找到了逆向换元的方法.
+
+    \subsection{合同}
+      \begin{definition}
+        如果存在可逆矩阵$C$使得$B=C^{T}AC$,
+        那么认为$A$和$B$合同.
+      \end{definition}
+
+      几何意义是, $A$和$B$代表的二次型之间存在可逆线性变换.
+
+    \subsection{标准形和规范形}
+      \begin{definition}
+        标准形是参数矩阵是对角矩阵的二次型.
+      \end{definition}
+
+      几何意义上, 标准型对任何参数坐标轴都有对称性.
+
+      \begin{definition}
+        规范形是参数矩阵是对角矩阵
+        且每一项为$0$或$\pm 1$的二次型.
+      \end{definition}
+
+      可以认为, 规范形是标准形经过规范化之后的结果.
+
+      \begin{definition}
+        标准形中正项项数$p$为正惯性指数,
+        负项项数$r-p$为负惯性指数,
+        两项之差$2p-r$为符号差.
+      \end{definition}
+
+    \subsection{正交变换}
+      由于系数矩阵$A$是实对称矩阵,
+      存在正交变换$C$使得$C^{T}AC=C^{-1}AC$为对角阵,
+      其元素为$A$的各个特征值.
+
+      这样, 可以将由二次型找标准形的问题,
+      映射到实对称矩阵找对角阵的问题.
+
+  \section{正定二次型}
+    \begin{definition}
+      输入任何非零参数, 结果都为正的二次型是正定二次型.
+    \end{definition}
+
+    换言之, 正定二次型的标准形系数全为正, 连$0$也不能包含.
+
+    容易看出, 这意味着参数矩阵特征值全部为正.
+    根据先前的定义, 正惯性指数一定为$n$,
+    并且与$I$合同.
+
+    \begin{definition}
+      一个矩阵右上角$k\times k$的子矩阵行列式为其顺序主子式.
+    \end{definition}
+
+    考虑到特征值和行列式的联系,
+    行列式为正限制了矩阵的负数特征值的个数必须为偶数,
+    因此全部顺序主子式为正能保证特征值全部为正.
+
+    \begin{definition}
+      如果$f\left(X\right)<0$, 那么$f\left(X\right)$是负定二次型.
+      如果$f\left(X\right)\ge 0$, 那么$f\left(X\right)$是半正定二次型.
+      如果$f\left(X\right)\le 0$, 那么$f\left(X\right)$是半负定二次型.
+    \end{definition}
+
+    对于负定二次型, 也有和正定二次型类似的定理.
+
+  \section{曲面}
+    \subsection{柱面}
+      方程中有一个变量缺失的一般是柱面, 例如双曲柱面
+      \[
+      \begin{aligned}
+        \frac{x^{2}}{a^{2}}-\frac{y^{2}}{b^{2}}&=1
+      .\end{aligned}
+      \]
+    \subsection{旋转面}
+      通过$r=\sqrt{x^{2}+y^{2}}$的逆变换得到的通常是旋转面, 例如旋转抛物面
+      \[
+      \begin{aligned}
+        x^{2}+y^{2}=z
+      .\end{aligned}
+      \]
+  \section{空间曲线}
+    \subsection{方程}
+      和空间直线的定义相仿, 
+      两个曲面联立得到的是\textbf{一般式方程},
+      也可以采用\textbf{参数方程}描述.
+
+    \subsection{投影}
+      理论上让被投影掉的那个变量被联立消掉就能求出,
+      因为投影本身就是形如$z^{\prime}=0z$的变换.
+      也可以尝试使用立体几何手段.
+
+  \section{二次曲面}
+    考虑到二次型分为退化和不退化的情况,
+    即使是不退化的二次型, 
+    根据参数维度的正负也可以分为$4$种情况,
+    其中两两对称, 例如令$x^{2}-y^{2}-z^{2}=1$
+    等同于令$y^{2}+z^{2}-x^{2}=-1$,
+    因此最终需要考虑三种情况:
+    \begin{itemize}
+      \item 二次型退化形成的旋转抛物面
+      \item 二次型正定或负定形成的椭球面或虚空
+      \item 其他情况形成的旋转双曲面
+    \end{itemize}
+
+    \subsection{抛物面}
+      \[
+      \begin{aligned}
+        z=\frac{x^{2}}{a^{2}}\pm \frac{y^{2}}{b^{2}}
+      .\end{aligned}
+      \]
+      
+      考虑变换$r^{2}=\frac{x^{2}}{a^{2}}\pm \frac{y^{2}}{b^{2}}$,
+      那么在$y^{2}$系数为正的时候将会形成一个椭圆的冗余度,
+      否则形成一个双曲线的冗余度,
+      因此两种情况分别是\textbf{椭圆抛物面}和\textbf{双曲抛物面}.
+
+      也可以考虑采用将$x$和$y$坐标轴分开的角度看,
+      那么在每个坐标面上该二次曲面都会形成抛物线的形状.
+    \subsection{椭球面}
+      \[
+      \begin{aligned}
+        \frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}+\frac{z^{2}}{c^{2}}=1
+      .\end{aligned}
+      \]
+      
+      这是二次型没有退化并且正定的情况.
+      如果负定, 那么没有任何一个点能满足要求.
+
+    \subsection{双曲面}
+      \[
+      \begin{aligned}
+        \frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}-\frac{z^{2}}{c^{2}}=\pm 1
+      .\end{aligned}
+      \]
+      
+      考虑变换$r^{2}=\frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}$,
+      这可以将旋转双曲面映射到二维双曲线.
+      当右边为正时, $z=0$的时候依然会形成一个椭圆, 因此单叶.
+      当右边为负时, $z=0$的时候无解, 因此双叶.
+\end{document}
